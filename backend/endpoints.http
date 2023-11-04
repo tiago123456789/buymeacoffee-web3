@@ -1,0 +1,95 @@
+@accessToken = 
+
+### Create user
+POST http://localhost:3000/users HTTP/1.1
+Content-type: application/json
+
+{
+    "name": "Tiago teste teste",
+    "email": "tiagrosadacost@gmail.com",
+    "password": "123456789",
+    "walletAddress": "0xE4Ea1944e946C2ce43e5464615525c16e39b0f32"
+}
+
+### Authenticate user
+POST http://localhost:3000/users/auth HTTP/1.1
+Content-type: application/json
+
+{
+    "email": "tiagrosadacost@gmail.com",
+    "password": "123456789"
+}
+
+### Add social media for user
+POST http://localhost:3000/users/social-medias HTTP/1.1
+Content-type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "link": "https://www.google.com"
+}
+
+### Get page customize of user
+GET http://localhost:3000/users/d9376a20-c348-4a1e-ac55-a4b5ae1f2dda/page-customizations HTTP/1.1
+Content-Type: multipart/form-data; boundary=MfnBoundry
+Authorization: Bearer {{accessToken}}
+
+### Upload page customize 
+POST http://localhost:3000/users/page-customizations HTTP/1.1
+Content-Type: multipart/form-data; boundary=MfnBoundry
+Authorization: Bearer {{accessToken}}
+
+--MfnBoundry
+Content-Disposition: form-data; name="file"; filename="nest-cli.json"
+
+< ./nest-cli.json
+
+--MfnBoundry
+Content-Disposition: form-data; name="name"
+
+teste
+--MfnBoundry
+Content-Disposition: form-data; name="enableTotalSupporters"
+
+true
+--MfnBoundry
+Content-Disposition: form-data; name="themeColor"
+
+blue
+--MfnBoundry
+Content-Disposition: form-data; name="whatAreYouDoing"
+
+creating YouTube videos on historical fashions, dressmaking etc.
+--MfnBoundry
+Content-Disposition: form-data; name="featuredVideo"
+
+https://www.youtube.com/watch?v=wTU1Vv7wm8Y
+--MfnBoundry
+Content-Disposition: form-data; name="description"
+
+Hello, Izabela from Prior Attire here.
+If you enjoy my YouTube videos on dressing up in historical costumes, historical dressmaking and the history of fashion, and would like to support me so that I could create more free content, you can now buy me a coffee - either as a one off or a monthly treat!
+For those of you who choose the membership option,  I will be adding perks and discount codes for my online shop if you ever feel you would like to buy our merchandise, but that's at the later stage, for the moment I am keeping it simple.
+Many thanks for your support, it is greatly appreciated! 
+--MfnBoundry--
+
+### Create donation to user
+POST http://localhost:3000/donations HTTP/1.1
+Content-type: application/json
+
+{
+    "receiverId": "d9376a20-c348-4a1e-ac55-a4b5ae1f2dda",
+    "donatorAddress": "0x49756F7C24b4699c98368E4c8CF48CD4839F1153",
+    "message": ":) :) ",
+    "value": "0.01"
+}
+
+
+### List donation to user
+GET http://localhost:3000/donations?page=1&itemsPerPage=2&receiverId=d9376a20-c348-4a1e-ac55-a4b5ae1f2dda HTTP/1.1
+Content-type: application/json
+
+### List users dashboard metrics
+GET http://localhost:3000/users/dashboard-metrics
+Content-type: application/json
+Authorization: Bearer {{accessToken}}
