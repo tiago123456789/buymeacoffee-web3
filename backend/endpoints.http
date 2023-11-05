@@ -5,7 +5,7 @@ POST http://localhost:3000/users HTTP/1.1
 Content-type: application/json
 
 {
-    "name": "Tiago teste teste",
+    "name": "Tiago 123456789",
     "email": "tiagrosadacost@gmail.com",
     "password": "123456789",
     "walletAddress": "0xE4Ea1944e946C2ce43e5464615525c16e39b0f32"
@@ -30,12 +30,12 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### Get page customize of user
-GET http://localhost:3000/users/d9376a20-c348-4a1e-ac55-a4b5ae1f2dda/page-customizations HTTP/1.1
+GET http://localhost:3000/users/d9376a20-c348-4a1e-ac55-a4b5ae1f2dda/pages-customized HTTP/1.1
 Content-Type: multipart/form-data; boundary=MfnBoundry
 Authorization: Bearer {{accessToken}}
 
 ### Upload page customize 
-POST http://localhost:3000/users/page-customizations HTTP/1.1
+POST http://localhost:3000/users/pages-customized HTTP/1.1
 Content-Type: multipart/form-data; boundary=MfnBoundry
 Authorization: Bearer {{accessToken}}
 
@@ -81,7 +81,7 @@ Content-type: application/json
     "receiverId": "d9376a20-c348-4a1e-ac55-a4b5ae1f2dda",
     "donatorAddress": "0x49756F7C24b4699c98368E4c8CF48CD4839F1153",
     "message": ":) :) ",
-    "value": "0.01"
+    "value": 0.002
 }
 
 

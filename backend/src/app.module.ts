@@ -3,12 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './user/user.module';
 import { CommonModule } from './common/common.module';
-import { PageCustomizeModule } from './page-customize/page-customize.module';
+import { PageCustomizedModule } from './page-customized/page-customized.module';
 import { SecurityModule } from './security/security.module';
 import { JwtModule } from '@nestjs/jwt';
-import { DonationsModule } from './donations/donations.module';
+import { DonationModule } from './donation/donation.module';
 
 @Module({
   imports: [
@@ -36,11 +36,11 @@ import { DonationsModule } from './donations/donations.module';
         };
       },
     }),
-    UsersModule,
+    UserModule,
     CommonModule,
-    PageCustomizeModule,
+    PageCustomizedModule,
     SecurityModule,
-    DonationsModule,
+    DonationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
