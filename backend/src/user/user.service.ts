@@ -6,14 +6,20 @@ import {
   SOCIAL_MEDIA_REPOSITORY,
   TOKEN_PROVIDER,
   USER_REPOSITORY,
-} from 'src/common/configs/provider.config';
+} from '../common/configs/provider.config';
 import { EncrypterInterface } from './adapters/encrypter.interface';
 import { CredentialDto } from './dtos/credential.dto';
 import { UserRepositoryInterface } from './repositories/user-repository.interface';
 import { SocialMedia } from './entities/social-media.entity';
 import { NewSocialMediaDto } from './dtos/new-social-media.dto';
 import { SocialMediaRepositoryInterface } from './repositories/social-media-repository.interface';
-import { TokeInterface } from 'src/common/adapters/token.interface';
+import { TokeInterface } from '../common/adapters/token.interface';
+import {
+  INVALID_CREDENTIALS,
+  EMAIL_ALREADY_USED,
+  NAME_ALREADY_USED,
+  USER_NOT_FOUND,
+} from '../common/errors/message.error';
 
 @Injectable()
 export class UserService {
@@ -30,9 +36,8 @@ export class UserService {
 
   async authenticate(credential: CredentialDto) {
     const userWithEmail = await this.repository.findByEmail(credential.email);
-
     if (!userWithEmail) {
-      throw new HttpException('Credentials invalid', 401);
+      throw new HttpException(INVALID_CREDENTIALS, 401);
     }
 
     const isValid = await this.encrypterAdapter.isValid(
@@ -41,7 +46,7 @@ export class UserService {
     );
 
     if (!isValid) {
-      throw new HttpException('Credentials invalid', 401);
+      throw new HttpException(INVALID_CREDENTIALS, 401);
     }
 
     return this.tokenAdapter.get({
@@ -57,14 +62,11 @@ export class UserService {
     ]);
 
     if (userWithEmail) {
-      throw new HttpException('Try another email', 409);
+      throw new HttpException(EMAIL_ALREADY_USED, 409);
     }
 
     if (userWithName) {
-      throw new HttpException(
-        'Try another name, because this name already used',
-        409,
-      );
+      throw new HttpException(NAME_ALREADY_USED, 409);
     }
 
     const user = new User();
@@ -85,7 +87,7 @@ export class UserService {
   async addSocialMediaLink(newSocialMedia: NewSocialMediaDto) {
     const user = await this.repository.findById(newSocialMedia.userId);
     if (!user) {
-      throw new HttpException('User not found', 404);
+      throw new HttpException(USER_NOT_FOUND, 404);
     }
 
     const socialMedia = new SocialMedia();
