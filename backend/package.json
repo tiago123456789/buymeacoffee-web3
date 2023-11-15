@@ -78,8 +78,10 @@
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": [
-        "ts-jest"
-    
+        "ts-jest",
+        {
+          "isolatedModules": true
+        }
       ]
     },
     "collectCoverageFrom": [
