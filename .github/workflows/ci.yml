@@ -34,7 +34,7 @@ jobs:
         run: cd backend && npm install
         
       - name: "Run unit tests"
-        run: cd backend && npm test ./src/users/
+        run: cd backend && npm test ./src/user/
 
   page-module:
     runs-on: ubuntu-latest
