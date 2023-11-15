@@ -8,9 +8,9 @@ import {
 import {
   ParamsPayload,
   TokeInterface,
-} from 'src/common/adapters/token.interface';
-import { TOKEN_PROVIDER } from 'src/common/configs/provider.config';
-import { RequestWithUserId } from 'src/common/types/request-with-user-id';
+} from '../common/adapters/token.interface';
+import { TOKEN_PROVIDER } from '../common/configs/provider.config';
+import { RequestWithUserId } from '../common/types/request-with-user-id';
 
 @Injectable()
 export class HasAuthenticatedGuard implements CanActivate {

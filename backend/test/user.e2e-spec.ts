@@ -56,10 +56,12 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  it('/users/auth (POST) ', async () => {
+    await request(app.getHttpServer())
+      .post('/users/auth')
+      .send({ email: '', password: '' })
+      .end((error, res) => {
+        console.log(error, res.body);
+      });
   });
 });

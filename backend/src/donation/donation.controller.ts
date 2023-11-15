@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
 import { DonationService } from './donation.service';
 import { NewDonationDto } from './dtos/new-donation.dto';
-import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { PaginationDto } from '../common/dtos/pagination.dto';
 import { ReturndonationPaginateDto } from './dtos/return-donation-paginate.dto';
 
 @Controller('donations')

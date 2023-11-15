@@ -4,7 +4,7 @@ import {
   ENCRYPTER_PROVIDER,
   SOCIAL_MEDIA_REPOSITORY,
   USER_REPOSITORY,
-} from 'src/common/configs/provider.config';
+} from '../common/configs/provider.config';
 import { BcryptAdapter } from './adapters/bcrypt.adapter';
 import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,7 +12,7 @@ import { User } from './entities/user.entity';
 import { UserRepository } from './repositories/user.repository';
 import { SocialMedia } from './entities/social-media.entity';
 import { SocialMediaRepository } from './repositories/social-media.repository';
-import { CommonModule } from 'src/common/common.module';
+import { CommonModule } from '../common/common.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, SocialMedia]), CommonModule],

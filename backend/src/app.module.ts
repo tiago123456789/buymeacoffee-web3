@@ -10,9 +10,13 @@ import { SecurityModule } from './security/security.module';
 import { JwtModule } from '@nestjs/jwt';
 import { DonationModule } from './donation/donation.module';
 
+console.log('#######################');
+console.log(process.env.NODE_ENV);
+console.log('#######################');
+
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env.testing' }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory(config: ConfigService) {

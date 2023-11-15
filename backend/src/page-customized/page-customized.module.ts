@@ -4,10 +4,10 @@ import { PageCustomizedController } from './page-customized.controller';
 import {
   PAGE_CUSTOMIZE_REPOSITORY,
   STORAGE,
-} from 'src/common/configs/provider.config';
+} from '../common/configs/provider.config';
 import { S3Adapter } from './adapters/s3.adapter';
-import { CommonModule } from 'src/common/common.module';
-import { UserModule } from 'src/user/user.module';
+import { CommonModule } from '../common/common.module';
+import { UserModule } from '../user/user.module';
 import { PageCustomizedRepository } from './repositories/page-customized.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PageCustomized } from './page-customized.entity';

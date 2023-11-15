@@ -1,14 +1,15 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { DonationRepositoryInterface } from './repositories/donation-repository.interface';
 import { Donation } from './donation.entity';
 import { NewDonationDto } from './dtos/new-donation.dto';
 import {
   DONATION_REPOSITORY,
   USER_REPOSITORY,
-} from 'src/common/configs/provider.config';
-import { User } from 'src/user/entities/user.entity';
-import { UserRepositoryInterface } from 'src/user/repositories/user-repository.interface';
+} from '../common/configs/provider.config';
+import { User } from '../user/entities/user.entity';
+import { UserRepositoryInterface } from '../user/repositories/user-repository.interface';
 import { ReturndonationPaginateDto } from './dtos/return-donation-paginate.dto';
+import { USER_NOT_FOUND } from '../common/errors/message.error';
 
 @Injectable()
 export class DonationService {
@@ -37,6 +38,9 @@ export class DonationService {
     donation.donatorAddress = newData.donatorAddress;
 
     const user = await this.userRepository.findById(newData.receiverId);
+    if (!user) {
+      throw new HttpException(USER_NOT_FOUND, 404);
+    }
     donation.receiver = user;
     donation.value = newData.value;
 

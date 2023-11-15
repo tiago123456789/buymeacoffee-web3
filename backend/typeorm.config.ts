@@ -2,7 +2,11 @@ import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
 
-config();
+if (process.env.NODE_ENV === 'testing') {
+  config({ path: '.env.testing' });
+} else {
+  config();
+}
 
 const configService = new ConfigService();
 

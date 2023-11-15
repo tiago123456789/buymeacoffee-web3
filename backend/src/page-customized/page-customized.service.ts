@@ -3,14 +3,15 @@ import {
   PAGE_CUSTOMIZE_REPOSITORY,
   STORAGE,
   USER_REPOSITORY,
-} from 'src/common/configs/provider.config';
+} from '../common/configs/provider.config';
 import { StorageInterface } from './adapters/storage.interface';
 import { PageCustomizedDto } from './page-customized.dto';
 import { randomUUID } from 'crypto';
 import { PageCustomized } from './page-customized.entity';
-import { UserRepositoryInterface } from 'src/user/repositories/user-repository.interface';
-import { User } from 'src/user/entities/user.entity';
+import { UserRepositoryInterface } from '../user/repositories/user-repository.interface';
+import { User } from '../user/entities/user.entity';
 import { PageCustomizedRepositoryInterface } from './repositories/page-customized-repository-interface';
+import { USER_CANT_HAVE_MANY_PAGES } from '../common/errors/message.error';
 
 @Injectable()
 export class PageCustomizedService {
@@ -28,13 +29,15 @@ export class PageCustomizedService {
 
   async save(newPage: PageCustomizedDto, file: Buffer): Promise<void> {
     const imageBackground = await this.storage.upload({
-      path: `${randomUUID()}${new Date().getTime()}.json`,
+      path: `${randomUUID()}${new Date().getTime()}.png`,
       content: file,
     });
 
-    const pageCustomizedOfUser = this.repository.findByUserId(newPage.userId);
+    const pageCustomizedOfUser = await this.repository.findByUserId(
+      newPage.userId,
+    );
     if (pageCustomizedOfUser) {
-      throw new HttpException('User can have only one page customized', 409);
+      throw new HttpException(USER_CANT_HAVE_MANY_PAGES, 409);
     }
 
     const page = new PageCustomized();

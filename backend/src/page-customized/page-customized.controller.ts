@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PageCustomizedDto } from './page-customized.dto';
-import { HasAuthenticatedGuard } from 'src/security/has-authenticated.guard';
-import { RequestWithUserId } from 'src/common/types/request-with-user-id';
+import { HasAuthenticatedGuard } from '../security/has-authenticated.guard';
+import { RequestWithUserId } from '../common/types/request-with-user-id';
 import { PageCustomizedService } from './page-customized.service';
 import { PageCustomized } from './page-customized.entity';
 
