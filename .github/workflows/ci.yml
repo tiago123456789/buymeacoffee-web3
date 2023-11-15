@@ -7,7 +7,6 @@ on:
 
 jobs:
   donation-module:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
@@ -23,7 +22,6 @@ jobs:
         run: cd backend && npm test ./src/donation/
 
   user-module:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
@@ -39,7 +37,6 @@ jobs:
         run: cd backend && npm test ./src/users/
 
   page-module:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
