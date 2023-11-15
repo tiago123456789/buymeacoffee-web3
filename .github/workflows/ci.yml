@@ -6,7 +6,8 @@ on:
       - master
 
 jobs:
-  setup:
+  donation-module:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
@@ -17,11 +18,6 @@ jobs:
 
       - name: "Install packages"
         run: cd backend && npm install
-    
-  donation-module:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
 
       - name: "Run unit tests"
         run: cd backend && npm test ./src/donation/
@@ -30,7 +26,15 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
 
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+
+      - name: "Install packages"
+        run: cd backend && npm install
+        
       - name: "Run unit tests"
         run: cd backend && npm test ./src/users/
 
@@ -38,6 +42,14 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
 
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+
+      - name: "Install packages"
+        run: cd backend && npm install
+        
       - name: "Run unit tests"
         run: cd backend && npm test ./src/page-customized/
