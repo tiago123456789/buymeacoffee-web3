@@ -18,7 +18,7 @@ describe('AppController (e2e)', () => {
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
-        ConfigModule.forRoot({ isGlobal: true }),
+        ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env.testing' }),
         TypeOrmModule.forRootAsync({
           inject: [ConfigService],
           useFactory(config: ConfigService) {

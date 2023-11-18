@@ -28,11 +28,6 @@ export class PageCustomizedService {
   }
 
   async save(newPage: PageCustomizedDto, file: Buffer): Promise<void> {
-    const imageBackground = await this.storage.upload({
-      path: `${randomUUID()}${new Date().getTime()}.png`,
-      content: file,
-    });
-
     const pageCustomizedOfUser = await this.repository.findByUserId(
       newPage.userId,
     );
@@ -40,14 +35,20 @@ export class PageCustomizedService {
       throw new HttpException(USER_CANT_HAVE_MANY_PAGES, 409);
     }
 
+    const [imageBackground, user] = await Promise.all([
+      this.storage.upload({
+        path: `${randomUUID()}${new Date().getTime()}.png`,
+        content: file,
+      }),
+      this.userRepository.findById(newPage.userId),
+    ]);
+
     const page = new PageCustomized();
     page.description = newPage.description;
     page.enableTotalSupporters = newPage.enableTotalSupporters;
     page.featuredVideo = newPage.featuredVideo;
     page.imageBackground = imageBackground;
     page.themeColor = newPage.themeColor;
-
-    const user = await this.userRepository.findById(newPage.userId);
     page.user = user;
 
     page.whatAreYouDoing = newPage.whatAreYouDoing;

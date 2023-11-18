@@ -18,7 +18,6 @@ export class JwtAdapter implements TokeInterface {
         email: payload.email,
       };
     } catch (error) {
-      console.log(error);
       return false;
     }
   }

@@ -77,7 +77,8 @@ export class UserService {
     user.password = await this.encrypterAdapter.getHash(data.password);
     user.walletAddress = data.walletAddress;
 
-    return this.repository.save(user);
+    await this.repository.save(user);
+    return user;
   }
 
   getMetricsByUserId(userId: string) {
