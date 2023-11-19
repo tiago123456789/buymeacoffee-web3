@@ -21,6 +21,15 @@ jobs:
       - name: "Run unit tests"
         run: cd backend && npm test ./src/
       
+      - name: "Setting up to run integration tests"
+        run: |
+          echo "" > .env.testing && \
+          echo ${{ secrets.DB_URL }} >> .env.testing && \
+          echo ${{ secrets.JWT_SECRET }} >> .env.testing && \
+          echo ${{ secrets.AWS_ACCESS_ID }} >> .env.testing && \
+          echo ${{ secrets.AWS_SECRET_ACCESS }} >> .env.testing && \
+          echo ${{ secrets.BUCKET }} >> .env.testing && \
+
       - name: "Run integration tests"
         run: |
           cd backend && npm run test:e2e ./test/user.e2e-spec.ts && \
