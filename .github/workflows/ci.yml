@@ -35,7 +35,5 @@ jobs:
         shell: bash
         run: |
           cd backend 
-          npm run test:e2e ./test/user.e2e-spec.ts
-          npm run test:e2e ./test/page-customazed.e2e-spec.ts
-          npm run test:e2e ./test/donnation.e2e-spec.ts
+           npm run test:e2e ./test/user.e2e-spec.ts &&  npm run test:e2e ./test/page-customazed.e2e-spec.ts && npm run test:e2e ./test/donnation.e2e-spec.ts 
 
