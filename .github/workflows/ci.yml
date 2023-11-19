@@ -30,6 +30,7 @@ jobs:
           echo ${{ secrets.AWS_ACCESS_ID }} >> .env.testing 
           echo ${{ secrets.AWS_SECRET_ACCESS }} >> .env.testing 
           echo ${{ secrets.BUCKET }} >> .env.testing
+          cat .env.testing
 
       - name: "Run integration tests"
         shell: bash
