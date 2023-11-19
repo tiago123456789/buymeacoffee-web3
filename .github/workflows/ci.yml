@@ -34,8 +34,8 @@ jobs:
       - name: "Run integration tests"
         shell: bash
         run: |
-          cd backend 
-          cd backend && npm run test:e2e ./test/user.e2e-spec.ts && \
-          cd backend && npm run test:e2e ./test/page-customazed.e2e-spec.ts && \
-          cd backend && npm run test:e2e ./test/donnation.e2e-spec.ts 
+          cd backend && \
+          npm run test:e2e ./test/user.e2e-spec.ts && \
+          npm run test:e2e ./test/page-customazed.e2e-spec.ts && \
+          npm run test:e2e ./test/donnation.e2e-spec.ts 
 
