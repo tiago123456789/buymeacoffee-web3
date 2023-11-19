@@ -25,12 +25,11 @@ jobs:
         shell: bash
         run: |
           echo "" > .env.testing 
-          echo ${{ secrets.DB_URL }} >> .env.testing
-          echo ${{ secrets.JWT_SECRET }} >> .env.testing 
-          echo ${{ secrets.AWS_ACCESS_ID }} >> .env.testing 
-          echo ${{ secrets.AWS_SECRET_ACCESS }} >> .env.testing 
-          echo ${{ secrets.BUCKET }} >> .env.testing
-          cat .env.testing
+          echo "DB_URL=${{ secrets.DB_URL }}" >> .env.testing
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env.testing 
+          echo "AWS_ACCESS_ID=${{ secrets.AWS_ACCESS_ID }}" >> .env.testing 
+          echo "AWS_SECRET_ACCESS=${{ secrets.AWS_SECRET_ACCESS }}" >> .env.testing 
+          echo "BUCKET=${{ secrets.BUCKET }}" >> .env.testing
 
       - name: "Run integration tests"
         shell: bash
