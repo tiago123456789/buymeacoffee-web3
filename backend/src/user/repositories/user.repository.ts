@@ -15,7 +15,6 @@ export class UserRepository implements UserRepositoryInterface<User> {
     const endDate = new Date();
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - 30);
-    console.log(startDate, endDate);
     const [totalDonations, totalSupporters, totalValueLast30Days] =
       await Promise.all([
         this.repository.manager.query(
