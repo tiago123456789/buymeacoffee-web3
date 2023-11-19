@@ -22,8 +22,9 @@ jobs:
         run: cd backend && npm test ./src/
       
       - name: "Setting up to run integration tests"
+        shell: bash
         run: |
-          echo "" > .env.testing && \
+          echo "" > .env.testing 
           echo ${{ secrets.DB_URL }} >> .env.testing && \
           echo ${{ secrets.JWT_SECRET }} >> .env.testing && \
           echo ${{ secrets.AWS_ACCESS_ID }} >> .env.testing && \
