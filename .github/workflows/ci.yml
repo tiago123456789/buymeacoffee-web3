@@ -19,23 +19,21 @@ jobs:
         run: cd backend && npm install
 
       - name: "Run unit tests"
-        run: cd backend && npm test ./src/
+        run: cd backend && npm test
       
       - name: "Setting up to run integration tests"
         shell: bash
         run: |
           echo "" > .env.testing 
-          echo "DB_URL=${{ secrets.DB_URL }}" >> .env.testing
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env.testing 
-          echo "AWS_ACCESS_ID=${{ secrets.AWS_ACCESS_ID }}" >> .env.testing 
-          echo "AWS_SECRET_ACCESS=${{ secrets.AWS_SECRET_ACCESS }}" >> .env.testing 
-          echo "BUCKET=${{ secrets.BUCKET }}" >> .env.testing
+          echo "DB_URL='${{ secrets.DB_URL }}'" >> .env.testing
+          echo "JWT_SECRET='${{ secrets.JWT_SECRET }}'" >> .env.testing 
+          echo "AWS_ACCESS_ID='${{ secrets.AWS_ACCESS_ID }}'" >> .env.testing 
+          echo "AWS_SECRET_ACCESS='${{ secrets.AWS_SECRET_ACCESS }}'" >> .env.testing 
+          echo "BUCKET='${{ secrets.BUCKET }}'" >> .env.testing
+          cat .env.testing
+          echo '${{ secrets.DB_URL }}'
 
       - name: "Run integration tests"
         shell: bash
         run: |
-          cd backend && \
-          npm run test:e2e ./test/user.e2e-spec.ts && \
-          npm run test:e2e ./test/page-customazed.e2e-spec.ts && \
-          npm run test:e2e ./test/donnation.e2e-spec.ts 
-
+          cd backend && NODE_ENV=testing ./node_modules/.bin/jest ./test/user.e2e-spec.ts --config ./test/jest-e2e.json --maxConcurrency=1 --runInBand

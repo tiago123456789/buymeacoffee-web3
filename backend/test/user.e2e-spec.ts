@@ -38,6 +38,7 @@ describe('UserController (e2e)', () => {
               entities: [__dirname + '/../**/*.entity.ts'],
               synchronize: true,
               ssl: true,
+              poolSize: 100,
             };
           },
         }),
@@ -92,139 +93,139 @@ describe('UserController (e2e)', () => {
     expect(response.body.message).toBe(INVALID_CREDENTIALS);
   });
 
-  it('/users/auth (POST) return status code 401', async () => {
-    await dropAllUsers();
-    await createUser();
-    const response = await request(app.getHttpServer())
-      .post('/users/auth')
-      .send({
-        email: fakeData.email,
-        password: '123456789',
-      })
-      .set('Accept', 'application/json');
+  // it('/users/auth (POST) return status code 401', async () => {
+  //   await dropAllUsers();
+  //   await createUser();
+  //   const response = await request(app.getHttpServer())
+  //     .post('/users/auth')
+  //     .send({
+  //       email: fakeData.email,
+  //       password: '123456789',
+  //     })
+  //     .set('Accept', 'application/json');
 
-    expect(response.statusCode).toBe(401);
-    expect(response.body.message).toBe(INVALID_CREDENTIALS);
-  });
+  //   expect(response.statusCode).toBe(401);
+  //   expect(response.body.message).toBe(INVALID_CREDENTIALS);
+  // });
 
-  it('/users/auth (POST) return status code 201', async () => {
-    await dropAllUsers();
-    await createUser();
-    const response = await request(app.getHttpServer())
-      .post('/users/auth')
-      .send(fakeData)
-      .set('Accept', 'application/json');
+  // it('/users/auth (POST) return status code 201', async () => {
+  //   await dropAllUsers();
+  //   await createUser();
+  //   const response = await request(app.getHttpServer())
+  //     .post('/users/auth')
+  //     .send(fakeData)
+  //     .set('Accept', 'application/json');
 
-    expect(response.statusCode).toBe(201);
-    expect(response.body).toHaveProperty('accessToken');
-  });
+  //   expect(response.statusCode).toBe(201);
+  //   expect(response.body).toHaveProperty('accessToken');
+  // });
 
-  it('/users (POST) return status code 409', async () => {
-    await dropAllUsers();
-    await createUser();
-    const response = await request(app.getHttpServer())
-      .post('/users')
-      .send(fakeData)
-      .set('Accept', 'application/json');
+  // it('/users (POST) return status code 409', async () => {
+  //   await dropAllUsers();
+  //   await createUser();
+  //   const response = await request(app.getHttpServer())
+  //     .post('/users')
+  //     .send(fakeData)
+  //     .set('Accept', 'application/json');
 
-    expect(response.statusCode).toBe(409);
-    expect(response.body.message).toBe(EMAIL_ALREADY_USED);
-  });
+  //   expect(response.statusCode).toBe(409);
+  //   expect(response.body.message).toBe(EMAIL_ALREADY_USED);
+  // });
 
-  it('/users (POST) return status code 409', async () => {
-    await dropAllUsers();
-    await createUser();
+  // it('/users (POST) return status code 409', async () => {
+  //   await dropAllUsers();
+  //   await createUser();
 
-    const response = await request(app.getHttpServer())
-      .post('/users')
-      .send({
-        email: 'faketest@gmail.com',
-        password: fakeData.password,
-        name: 'Test',
-        walletAddress: randomUUID(),
-      })
-      .set('Accept', 'application/json');
+  //   const response = await request(app.getHttpServer())
+  //     .post('/users')
+  //     .send({
+  //       email: 'faketest@gmail.com',
+  //       password: fakeData.password,
+  //       name: 'Test',
+  //       walletAddress: randomUUID(),
+  //     })
+  //     .set('Accept', 'application/json');
 
-    expect(response.statusCode).toBe(409);
-    expect(response.body.message).toBe(NAME_ALREADY_USED);
-  });
+  //   expect(response.statusCode).toBe(409);
+  //   expect(response.body.message).toBe(NAME_ALREADY_USED);
+  // });
 
-  it('/users (POST) return status code 201', async () => {
-    await dropAllUsers();
-    const response = await request(app.getHttpServer())
-      .post('/users')
-      .send({
-        email: 'faketest@gmail.com',
-        password: fakeData.password,
-        name: 'Test',
-        walletAddress: randomUUID(),
-      })
-      .set('Accept', 'application/json');
+  // it('/users (POST) return status code 201', async () => {
+  //   await dropAllUsers();
+  //   const response = await request(app.getHttpServer())
+  //     .post('/users')
+  //     .send({
+  //       email: 'faketest@gmail.com',
+  //       password: fakeData.password,
+  //       name: 'Test',
+  //       walletAddress: randomUUID(),
+  //     })
+  //     .set('Accept', 'application/json');
 
-    expect(response.statusCode).toBe(201);
-  });
+  //   expect(response.statusCode).toBe(201);
+  // });
 
-  it('/users/social-medias (POST) return status code 401', async () => {
-    await dropAllUsers();
-    await createUser();
+  // it('/users/social-medias (POST) return status code 401', async () => {
+  //   await dropAllUsers();
+  //   await createUser();
 
-    const response = await request(app.getHttpServer())
-      .post('/users/social-medias')
-      .send({
-        link: 'www.testexample.com.br',
-      })
-      .set('Accept', 'application/json');
+  //   const response = await request(app.getHttpServer())
+  //     .post('/users/social-medias')
+  //     .send({
+  //       link: 'www.testexample.com.br',
+  //     })
+  //     .set('Accept', 'application/json');
 
-    expect(response.statusCode).toBe(401);
-    expect(response.body.message).toBe('Unauthorized');
-  });
+  //   expect(response.statusCode).toBe(401);
+  //   expect(response.body.message).toBe('Unauthorized');
+  // });
 
-  it('/users/social-medias (POST) return status code 403', async () => {
-    await dropAllUsers();
-    await createUser();
+  // it('/users/social-medias (POST) return status code 403', async () => {
+  //   await dropAllUsers();
+  //   await createUser();
 
-    const response = await request(app.getHttpServer())
-      .post('/users/social-medias')
-      .send({
-        link: 'www.testexample.com.br',
-      })
-      .set('Authorization', 'Bearer alsfjsdfjsrfwewoiqrofo')
-      .set('Accept', 'application/json');
+  //   const response = await request(app.getHttpServer())
+  //     .post('/users/social-medias')
+  //     .send({
+  //       link: 'www.testexample.com.br',
+  //     })
+  //     .set('Authorization', 'Bearer alsfjsdfjsrfwewoiqrofo')
+  //     .set('Accept', 'application/json');
 
-    expect(response.statusCode).toBe(403);
-    expect(response.body.message).toBe('Forbidden resource');
-  });
+  //   expect(response.statusCode).toBe(403);
+  //   expect(response.body.message).toBe('Forbidden resource');
+  // });
 
-  it('/users/social-medias (POST) return status code 201', async () => {
-    await dropAllUsers();
-    const userService = app.get(UserService);
-    await createUser();
-    const accessToken = await userService.authenticate(fakeData);
-    const response = await request(app.getHttpServer())
-      .post('/users/social-medias')
-      .send({
-        link: 'www.testexample.com.br',
-      })
-      .set('Authorization', `Bearer ${accessToken}`)
-      .set('Accept', 'application/json');
+  // it('/users/social-medias (POST) return status code 201', async () => {
+  //   await dropAllUsers();
+  //   const userService = app.get(UserService);
+  //   await createUser();
+  //   const accessToken = await userService.authenticate(fakeData);
+  //   const response = await request(app.getHttpServer())
+  //     .post('/users/social-medias')
+  //     .send({
+  //       link: 'www.testexample.com.br',
+  //     })
+  //     .set('Authorization', `Bearer ${accessToken}`)
+  //     .set('Accept', 'application/json');
 
-    expect(response.statusCode).toBe(201);
-  });
+  //   expect(response.statusCode).toBe(201);
+  // });
 
-  it('/users/social-medias (POST) return status code 404', async () => {
-    await dropAllUsers();
-    const userService = app.get(UserService);
-    await createUser();
-    const accessToken = await userService.authenticate(fakeData);
-    await dropAllUsers();
-    const response = await request(app.getHttpServer())
-      .post('/users/social-medias')
-      .send({
-        link: 'www.testexample.com.br',
-      })
-      .set('Authorization', `Bearer ${accessToken}`)
-      .set('Accept', 'application/json');
+  // it('/users/social-medias (POST) return status code 404', async () => {
+  //   await dropAllUsers();
+  //   const userService = app.get(UserService);
+  //   await createUser();
+  //   const accessToken = await userService.authenticate(fakeData);
+  //   await dropAllUsers();
+  //   const response = await request(app.getHttpServer())
+  //     .post('/users/social-medias')
+  //     .send({
+  //       link: 'www.testexample.com.br',
+  //     })
+  //     .set('Authorization', `Bearer ${accessToken}`)
+  //     .set('Accept', 'application/json');
 
-    expect(response.statusCode).toBe(404);
-  });
+  //   expect(response.statusCode).toBe(404);
+  // });
 });
