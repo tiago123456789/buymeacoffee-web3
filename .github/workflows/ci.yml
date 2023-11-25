@@ -35,6 +35,4 @@ jobs:
           echo "BUCKET='${{ secrets.BUCKET }}'" >> .env.testing
 
       - name: "Run integration tests"
-        shell: bash
-        run: |
-          cd backend && npm run test:e2e --runInBand
+        run: cd backend && npm run test:e2e 
