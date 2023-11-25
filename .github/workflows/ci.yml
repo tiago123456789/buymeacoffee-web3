@@ -57,9 +57,7 @@ jobs:
           npm run test:e2e 
 
   notify:
-    needs: 
-      - unit-tests 
-      - integration-tests
+    needs: [unit-tests, integration-tests]
     runs-on: ubuntu-latest
     steps:
     - name: Notify about what's happenning
