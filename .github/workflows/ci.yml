@@ -35,7 +35,7 @@ jobs:
           echo "BUCKET='${{ secrets.BUCKET }}'" >> .env.testing
 
       - name: Run migrations test database
-        run: cd backend && NODE_ENV=testing npm run typeorm:run-migrations
+        run: cd backend && npm run build && NODE_ENV=testing npm run typeorm:run-migrations
 
       - name: "Run integration tests"
         run: cd backend && npm run test:e2e 
