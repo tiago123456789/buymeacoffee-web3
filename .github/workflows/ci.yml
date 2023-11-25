@@ -23,7 +23,10 @@ jobs:
 
       - name: Start containers
         run: cd backend && docker-compose -f docker-compose.testing.yml up -d
-      
+
+      - name: Run migrations test database
+        run: cd backend && NODE_ENV=testing npm run typeorm:run-migrations
+              
       - name: "Setting up to run integration tests"
         shell: bash
         run: |
