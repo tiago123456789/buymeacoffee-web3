@@ -39,11 +39,10 @@ describe('PageCustomizedController (e2e)', () => {
           inject: [ConfigService],
           useFactory(config: ConfigService) {
             return {
-              type: 'cockroachdb',
+              type: 'postgres',
               url: config.get('DB_URL'),
               entities: [__dirname + '/../**/*.entity.ts'],
               synchronize: true,
-              ssl: true,
             };
           },
         }),

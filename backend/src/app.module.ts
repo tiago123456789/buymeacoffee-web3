@@ -9,13 +9,11 @@ import { PageCustomizedModule } from './page-customized/page-customized.module';
 import { SecurityModule } from './security/security.module';
 import { JwtModule } from '@nestjs/jwt';
 import { DonationModule } from './donation/donation.module';
-
-console.log('#######################');
-console.log(process.env.NODE_ENV);
-console.log('#######################');
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 @Module({
   imports: [
+    PrometheusModule.register(),
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env.testing' }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],

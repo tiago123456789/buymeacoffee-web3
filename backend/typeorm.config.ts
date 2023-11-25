@@ -9,12 +9,11 @@ let options;
 if (process.env.NODE_ENV === 'testing') {
   config({ path: '.env.testing' });
   options = {
-    type: 'cockroachdb',
+    type: 'postgres',
     url: configService.get('DB_URL'),
     entities: [__dirname + '/../**/*.entity.js'],
     migrationsTableName: 'migration',
     migrations: [__dirname + '/src/migrations/*.ts'],
-    ssl: true,
   };
 } else {
   config();
@@ -24,7 +23,6 @@ if (process.env.NODE_ENV === 'testing') {
     entities: [__dirname + '/../**/*.entity.js'],
     migrationsTableName: 'migration',
     migrations: [__dirname + '/src/migrations/*.ts'],
-    ssl: true,
   };
 }
 

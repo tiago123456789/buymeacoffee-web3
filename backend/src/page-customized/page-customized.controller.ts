@@ -16,6 +16,7 @@ import { HasAuthenticatedGuard } from '../security/has-authenticated.guard';
 import { RequestWithUserId } from '../common/types/request-with-user-id';
 import { PageCustomizedService } from './page-customized.service';
 import { PageCustomized } from './page-customized.entity';
+import { Express } from 'express';
 
 @Controller('/users')
 export class PageCustomizedController {

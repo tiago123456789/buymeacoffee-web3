@@ -39,6 +39,7 @@ export class HasAuthenticatedGuard implements CanActivate {
   private extractTokenFromHeader(
     request: RequestWithUserId,
   ): string | undefined {
+    // @ts-ignore
     const accessToken: string | undefined = request.headers.authorization;
     if (!accessToken) {
       return null;
