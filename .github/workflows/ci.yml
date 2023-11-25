@@ -24,9 +24,6 @@ jobs:
       - name: Start containers
         run: cd backend && docker-compose -f docker-compose.testing.yml up -d
 
-      - name: Run migrations test database
-        run: cd backend && NODE_ENV=testing npm run typeorm:run-migrations
-              
       - name: "Setting up to run integration tests"
         shell: bash
         run: |
@@ -36,6 +33,9 @@ jobs:
           echo "AWS_ACCESS_ID='${{ secrets.AWS_ACCESS_ID }}'" >> .env.testing 
           echo "AWS_SECRET_ACCESS='${{ secrets.AWS_SECRET_ACCESS }}'" >> .env.testing 
           echo "BUCKET='${{ secrets.BUCKET }}'" >> .env.testing
+
+      - name: Run migrations test database
+        run: cd backend && NODE_ENV=testing npm run typeorm:run-migrations
 
       - name: "Run integration tests"
         run: cd backend && npm run test:e2e 
