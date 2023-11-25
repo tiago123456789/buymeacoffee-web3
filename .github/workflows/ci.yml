@@ -39,4 +39,7 @@ jobs:
         run: cd backend && npm run build && NODE_ENV=testing npm run typeorm:run-migrations
 
       - name: "Run integration tests"
-        run: cd backend && npm run test:e2e 
+        shell: bash
+        run: |
+          cd backend 
+          npm run test:e2e 
