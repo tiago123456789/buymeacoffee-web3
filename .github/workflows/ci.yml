@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  tests:
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
@@ -20,6 +20,18 @@ jobs:
 
       - name: "Run unit tests"
         run: cd backend && npm test
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+
+      - name: "Install packages"
+        run: cd backend && npm install
 
       - name: Start containers
         run: cd backend && docker-compose -f docker-compose.testing.yml up -d
@@ -36,7 +48,7 @@ jobs:
           echo "BUCKET='${{ secrets.BUCKET }}'" >> .env.testing
 
       - name: Run migrations test database
-        run: cd backend && npm run build && NODE_ENV=testing npm run typeorm:run-migrations
+        run: cd backend && NODE_ENV=testing npm run typeorm:run-migrations
 
       - name: "Run integration tests"
         shell: bash
