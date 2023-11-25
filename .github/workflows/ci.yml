@@ -27,6 +27,7 @@ jobs:
       - name: "Setting up to run integration tests"
         shell: bash
         run: |
+          cd backend
           echo "" > .env.testing 
           echo "DB_URL='${{ secrets.DB_URL }}'" >> .env.testing
           echo "JWT_SECRET='${{ secrets.JWT_SECRET }}'" >> .env.testing 
