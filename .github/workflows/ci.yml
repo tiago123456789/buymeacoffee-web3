@@ -30,13 +30,13 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
 
-      - name: "Install packages"
+      - name: Install packages
         run: cd backend && npm install
 
-      - name: Start containers
+      - name: Create tests database in container
         run: cd backend && docker-compose -f docker-compose.testing.yml up -d
 
-      - name: "Setting up to run integration tests"
+      - name: Create env file to run integration tests
         shell: bash
         run: |
           cd backend
@@ -47,10 +47,10 @@ jobs:
           echo "AWS_SECRET_ACCESS='${{ secrets.AWS_SECRET_ACCESS }}'" >> .env.testing 
           echo "BUCKET='${{ secrets.BUCKET }}'" >> .env.testing
 
-      - name: Run migrations test database
+      - name: Run migrations in tests database
         run: cd backend && NODE_ENV=testing npm run typeorm:run-migrations
 
-      - name: "Run integration tests"
+      - name: Run integration tests
         shell: bash
         run: |
           cd backend 
