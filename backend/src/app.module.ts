@@ -14,7 +14,7 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 @Module({
   imports: [
     PrometheusModule.register(),
-    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env.testing' }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory(config: ConfigService) {
@@ -22,7 +22,7 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
           type: 'cockroachdb',
           url: config.get('DB_URL'),
           entities: [__dirname + '/../**/*.entity.js'],
-          synchronize: true,
+          autoLoadEntities: true,
           ssl: true,
         };
       },

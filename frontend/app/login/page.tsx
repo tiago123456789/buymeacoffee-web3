@@ -1,4 +1,6 @@
+import { PAGE_REGISTER } from "@/constants/page"
 import { Metadata } from "next"
+import Link from "next/link"
 
 export const metadata: Metadata = {
     title: 'Login - Buy me a coffee version WEB3',
@@ -55,12 +57,9 @@ export default function Login() {
                             </button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 You don't have an account?{" "}
-                                <a
-                                    href="#"
-                                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                                >
-                                    Register here
-                                </a>
+                                <Link href={PAGE_REGISTER}>
+                                    <span className="text-white">Register here</span>
+                                </Link>
                             </p>
                         </form>
                     </div>
