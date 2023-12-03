@@ -28,7 +28,7 @@ export default function Register() {
         try {
             event.preventDefault()
             await httpClient.post("users", newAccount, {})
-            toast.success("User created success")
+            toast.success("Logged success")
         } catch(error: any) {
             toast.error(error.response.data.message || error.message || "Oops! Internal server error.")
         }
@@ -141,8 +141,6 @@ export default function Register() {
                 </div>
             </div>
             <ToastContainer />
-
         </section>
-
     )
 }

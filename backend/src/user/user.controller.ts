@@ -5,6 +5,7 @@ import {
   HttpCode,
   Post,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { NewRegisterDto } from './dtos/new-register.dto';
@@ -14,6 +15,7 @@ import { HasAuthenticatedGuard } from '../security/has-authenticated.guard';
 import { RequestWithUserId } from 'src/common/types/request-with-user-id';
 import { NewSocialMediaDto } from './dtos/new-social-media.dto';
 import { DashboardMetricDto } from './dtos/dashboard-metric.dto';
+import { Response } from 'express';
 
 @Controller('users')
 export class UserController {
@@ -22,8 +24,10 @@ export class UserController {
   @Post('/auth')
   async authenticate(
     @Body() credentials: CredentialDto,
+    @Res({ passthrough: true }) response: Response,
   ): Promise<{ [key: string]: any }> {
     const accessToken = await this.userService.authenticate(credentials);
+    response.cookie('accessToken', accessToken);
     return {
       accessToken,
     };

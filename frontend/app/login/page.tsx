@@ -1,13 +1,43 @@
-import { PAGE_REGISTER } from "@/constants/page"
-import { Metadata } from "next"
-import Link from "next/link"
+'use client'
 
-export const metadata: Metadata = {
-    title: 'Login - Buy me a coffee version WEB3',
-    description: 'Login - Support people sending ethereum',
+import { PAGE_DASHBOARD, PAGE_REGISTER } from "@/constants/page"
+import HttpClient from "@/services/http-client";
+import Link from "next/link"
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+interface Credential {
+    email: string;
+    password: string;
 }
 
+const httpClient = new HttpClient();
+
 export default function Login() {
+    const router = useRouter()
+    const [credential, setCredential] = useState<Credential>({
+        email: "",
+        password: ""
+    })
+
+    const onChangeInputValue = (key: string, value: string) => {
+        setCredential({ ...credential, [key]: value })
+    }
+
+    const onSubmit = async (event: any) => {
+        try {
+            event.preventDefault()
+            const data = await httpClient.post("users/auth", credential, {})
+            localStorage.setItem("accessToken", data.accessToken)
+            toast.success("Logged success.")
+            router.push(PAGE_DASHBOARD)
+        } catch(error: any) {
+            toast.error(error.response.data.message || error.message || "Oops! Internal server error.")
+        }
+    }
+
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -16,7 +46,7 @@ export default function Login() {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Login in your account
                         </h1>
-                        <form className="space-y-4 md:space-y-6" action="#">
+                        <form onSubmit={onSubmit} className="space-y-4 md:space-y-6" action="#">
                             <div>
                                 <label
                                     htmlFor="email"
@@ -28,6 +58,8 @@ export default function Login() {
                                     type="email"
                                     name="email"
                                     id="email"
+                                    value={credential.email}
+                                    onChange={(event) => onChangeInputValue("email", event.target.value)}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="name@company.com"
                                     required=""
@@ -45,6 +77,8 @@ export default function Login() {
                                     name="password"
                                     id="password"
                                     placeholder="••••••••"
+                                    value={credential.password}
+                                    onChange={(event) => onChangeInputValue("password", event.target.value)}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required=""
                                 />
@@ -65,6 +99,7 @@ export default function Login() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </section>
     )
 }
