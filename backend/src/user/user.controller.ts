@@ -52,7 +52,7 @@ export class UserController {
 
   @UseGuards(HasAuthenticatedGuard)
   @Get('/dashboard-metrics')
-  @HttpCode(201)
+  @HttpCode(200)
   async getDashboardMetrics(
     @Req() request: RequestWithUserId,
   ): Promise<DashboardMetricDto> {

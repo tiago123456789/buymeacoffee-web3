@@ -6,13 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Link from "next/link";
 import { PAGE_LOGIN } from "@/constants/page";
-
-interface Account {
-    name: string,
-    email: string,
-    password: string,
-    walletAddress: string
-}
+import Account from "@/models/account";
 
 const httpClient = new HttpClient();
 

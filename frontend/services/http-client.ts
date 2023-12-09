@@ -15,7 +15,7 @@ export interface HttpClientInterface {
 class HttpClient implements HttpClientInterface {
 
     get(url: string, headers: { [key: string]: any; }): Promise<any> {
-        throw new Error("Method not implemented.");
+        return axios.get(url, headers).then(({ data }) => data)
     }
 
     post(url: string, data: { [key: string]: any; }, headers: { [key: string]: any; }): Promise<any> {

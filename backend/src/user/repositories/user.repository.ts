@@ -42,7 +42,7 @@ export class UserRepository implements UserRepositoryInterface<User> {
     return {
       totalDonations: totalDonations[0].total,
       totalSupporters: totalSupporters[0].total,
-      totalValueLast30Days: totalValueLast30Days[0].total,
+      totalValueLast30Days: totalValueLast30Days[0].total || 0,
     };
   }
 

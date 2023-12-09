@@ -1,17 +1,13 @@
 'use client'
 
 import { PAGE_DASHBOARD, PAGE_REGISTER } from "@/constants/page"
+import Credential from "@/models/credential.";
 import HttpClient from "@/services/http-client";
 import Link from "next/link"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
-interface Credential {
-    email: string;
-    password: string;
-}
 
 const httpClient = new HttpClient();
 
@@ -30,10 +26,9 @@ export default function Login() {
         try {
             event.preventDefault()
             const data = await httpClient.post("users/auth", credential, {})
-            localStorage.setItem("accessToken", data.accessToken)
             toast.success("Logged success.")
-            router.push(PAGE_DASHBOARD)
-        } catch(error: any) {
+            setTimeout(() => router.push(PAGE_DASHBOARD), 2000)
+        } catch (error: any) {
             toast.error(error.response.data.message || error.message || "Oops! Internal server error.")
         }
     }
