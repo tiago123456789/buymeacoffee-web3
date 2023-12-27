@@ -25,9 +25,9 @@ export default function Login() {
     const onSubmit = async (event: any) => {
         try {
             event.preventDefault()
-            const data = await httpClient.post("users/auth", credential, {})
+            await httpClient.post("users/auth", credential, {})
             toast.success("Logged success.")
-            setTimeout(() => router.push(PAGE_DASHBOARD), 2000)
+            setTimeout(() => router.push(PAGE_DASHBOARD), 1000)
         } catch (error: any) {
             toast.error(error.response.data.message || error.message || "Oops! Internal server error.")
         }

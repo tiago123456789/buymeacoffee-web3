@@ -1,3 +1,5 @@
+import { PAGE_CUSTOMIZE, PAGE_DASHBOARD } from "@/constants/page";
+import Link from "next/link";
 import { PropsWithChildren } from "react";
 
 export default function Sidebar(props: PropsWithChildren) {
@@ -34,20 +36,18 @@ export default function Sidebar(props: PropsWithChildren) {
                 <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                     <ul className="space-y-2 font-medium">
                         <li>
-                            <a
-                                href="#"
+                            <Link
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                            >
+                                href={PAGE_DASHBOARD}>
                                 <span className="ms-3">Dashboard</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                            >
+                                href={PAGE_CUSTOMIZE}>
                                 <span className="flex-1 ms-3 whitespace-nowrap">Customize page</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <a
